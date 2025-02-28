@@ -1,1 +1,1 @@
-# Guess-The-Number2.0
+In this code we are working off of the code we made last year, Guess The Number 1.0. In this code it uses functions, loops, ifs, and creates files. You can access a leaderboard that will save all of the past scores runned inside of the code. After every round of guessing the number, it will then ask you if you want to play again, look at the leaderboard, or finish up with the game and end the code.
