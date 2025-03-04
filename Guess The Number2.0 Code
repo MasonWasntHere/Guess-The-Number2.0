@@ -22,31 +22,32 @@ number_of_guesses = 0  # initialize number of guesses
 
 def GuessTheNumber():
     global number_of_guesses
-    number_of_guesses = 0  # reset number of guesses for each game
-    random_number = random.randint(1, 100)  # generates random number
+    number_of_guesses = 0  # resets the number of guesses
+    random_number = random.randint(1, 100)  # generates new number
     print("Guess the number between 1 and 100")
     while True:
-        user_guess = int(input())
-        number_of_guesses += 1
-        if user_guess > random_number:
-            print("Too high")
-        elif user_guess < random_number:
-            print("Too low")
-        else:
-            print("Congratulations! You guessed the number in", number_of_guesses, "tries.")
-            with open("leaderboard.txt", "a") as file:
-                file.write(name_input + ": " + str(number_of_guesses) + "\n")
-            break
-    except ValueError:
-        print("Please input a valid number") # if you input a string, it will ask for a number
+        try:
+            user_guess = int(input())
+            number_of_guesses += 1
+            if user_guess > random_number:
+                print("Too high")
+            elif user_guess < random_number:
+                print("Too low")
+            else:
+                print("Congratulations! You guessed the number in", number_of_guesses, "tries.")
+                with open("leaderboard.txt", "a") as file:
+                    file.write(name_input + ": " + str(number_of_guesses) + "\n")
+                break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
-user1 = User(name_input, 0)  # creates a user 
+user1 = User(name_input, 0)  # creates a user with inputted name
 
 print("")
 print("--------------------------------")
 print("Welcome to Guess The Number 2.0!")
 print("--------------------------------")
-print("Do you want to play Guess The Number 2.0, or check out the leaderboard? (y/n/l)")  # asks you what you want do to
+print("Do you want to play Guess The Number 2.0, or check out the leaderboard? (y/n/l)")  # asks user what they want to do
 print("")
 play = input().lower()
 
@@ -59,10 +60,9 @@ while play != "n":
         play = input().lower()
     elif play == "y":
         GuessTheNumber()
-        user1.assign_score(number_of_guesses)  # assigns score
-        user1.display_properties()  # displays user score
-        print("Do you want to play again? or check the leaderboard (y/n/l)")  # asks if you want to paly again
-        print("")
+        user1.assign_score(number_of_guesses)  # sets users score
+        user1.display_properties()  # displays users score
+        print("Do you want to play again? or check the leaderboard (y/n/l)")  # asks user what they want to do
         play = input().lower()
     else:
         print("Invalid input. Please enter 'y', 'n', or 'l'.")
