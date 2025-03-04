@@ -14,6 +14,14 @@ class User:
         print("Name:", self.name)
         print("Score:", self.score)
 
+def sort_leaderboard():
+    with open("leaderboard.txt", "r") as file:
+        lines = file.readlines()
+        lines.sort(key=lambda x: int(x.split(": ")[1]))
+    with open("leaderboard.txt", "w") as file:
+        file.writelines(lines)
+
+
 # ask user for name
 print("Please input your name")
 name_input = input()
@@ -30,9 +38,13 @@ def GuessTheNumber():
             user_guess = int(input())
             number_of_guesses += 1
             if user_guess > random_number:
+                print("")
                 print("Too high")
+                print("")
             elif user_guess < random_number:
+                print("")
                 print("Too low")
+                print("")
             else:
                 print("Congratulations! You guessed the number in", number_of_guesses, "tries.")
                 with open("leaderboard.txt", "a") as file:
@@ -53,17 +65,21 @@ play = input().lower()
 
 while play != "n":
     if play == "l":
+        print("")
         print("Leaderboard:")
         with open("leaderboard.txt", "r") as file:
             print(file.read())
         print("Do you want to play Guess The Number 2.0 now? (y/n)")
         play = input().lower()
+
     elif play == "y":
         GuessTheNumber()
         user1.assign_score(number_of_guesses)  # sets users score
+        sort_leaderboard()
         user1.display_properties()  # displays users score
         print("Do you want to play again? or check the leaderboard (y/n/l)")  # asks user what they want to do
         play = input().lower()
+
     else:
         print("Invalid input. Please enter 'y', 'n', or 'l'.")
         play = input().lower()
