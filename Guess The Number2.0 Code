@@ -2,28 +2,27 @@ import random
 import os
 
 class User:
-    def __init__(self, name, score):
+    def __init__(self, name, score): # makes user with name and score
         self.name = name
         self.score = score
 
-    def assign_score(self, score):
+    def assign_score(self, score):  # assigns score to user
         self.score = score
 
-    def display_properties(self):
+    def display_properties(self): # displays properties of the user
         print("Properties of the User:")
-        print("Name:", self.name)
-        print("Score:", self.score)
+        print("Name:", self.name) # prints name
+        print("Score:", self.score) # prints score
 
 def sort_leaderboard():
-    if os.path.exists("leaderboard.txt"):
+    if os.path.exists("leaderboard.txt"): # checks if leaderboard file exists
         with open("leaderboard.txt", "r") as file:
-            lines = file.readlines()
+            lines = file.readlines() # reads the lines of the file
             lines.sort(key=lambda x: int(x.split(": ")[1]))
         with open("leaderboard.txt", "w") as file:
-            file.writelines(lines)
+            file.writelines(lines) # writes the sorted lines to the file
 
-# ask user for name
-print("Please input your name")
+print("Please input your name") # ask user for name
 name_input = input()
 
 number_of_guesses = 0  # initialize number of guesses
@@ -35,7 +34,7 @@ def GuessTheNumber():
     print("Guess the number between 1 and 100")
     while True:
         try:
-            user_guess = int(input())
+            user_guess = int(input()) # asks user for input
             number_of_guesses += 1
             if user_guess > random_number:
                 print("")
@@ -47,7 +46,7 @@ def GuessTheNumber():
                 print("")
             else:
                 print("Congratulations! You guessed the number in", number_of_guesses, "tries.")
-                with open("leaderboard.txt", "a") as file:
+                with open("leaderboard.txt", "a") as file: # adds user to leaderboard
                     file.write(name_input + ": " + str(number_of_guesses) + "\n")
                 break
         except ValueError:
@@ -61,15 +60,15 @@ print("Welcome to Guess The Number 2.0!")
 print("--------------------------------")
 print("Do you want to play Guess The Number 2.0, or check out the leaderboard? (y/n/l)")  # asks user what they want to do
 print("")
-play = input().lower()
+play = input().lower() 
 
-while play != "n":
-    if play == "l":
+while play != "n": 
+    if play == "l": # if user wants to check leaderboard
         print("")
         print("Leaderboard:")
         if os.path.exists("leaderboard.txt"):
             with open("leaderboard.txt", "r") as file:
-                print(file.read())
+                print(file.read()) # prints leaderboard
         else:
             print("Leaderboard is empty.")
         print("Do you want to play Guess The Number 2.0 now? (y/n)")
@@ -84,7 +83,7 @@ while play != "n":
         play = input().lower()
 
     else:
-        print("Invalid input. Please enter 'y', 'n', or 'l'.")
-        play = input().lower()
+        print("Invalid input. Please enter 'y', 'n', or 'l'.") # asks user for input
+        play = input().lower() 
 
 print("Thank you for playing!")
