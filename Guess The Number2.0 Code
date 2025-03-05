@@ -18,9 +18,18 @@ def sort_leaderboard():
     if os.path.exists("leaderboard.txt"): # checks if leaderboard file exists
         with open("leaderboard.txt", "r") as file:
             lines = file.readlines() # reads the lines of the file
-            lines.sort(key=lambda x: int(x.split(": ")[1]))
+            valid_lines = []
+            for line in lines:
+                try:
+                    name, score = line.split(": ")
+                    score = int(score)
+                    valid_lines.append((name, score))
+                except ValueError:
+                    continue  # skip invalid lines
+            valid_lines.sort(key=lambda x: x[1])
+            sorted_lines = [f"{name}: {score}\n" for name, score in valid_lines]
         with open("leaderboard.txt", "w") as file:
-            file.writelines(lines) # writes the sorted lines to the file
+            file.writelines(sorted_lines) # writes the sorted lines to the file
 
 print("Please input your name") # ask user for name
 name_input = input()
